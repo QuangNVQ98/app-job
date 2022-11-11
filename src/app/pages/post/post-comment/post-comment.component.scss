@@ -1,0 +1,12 @@
+.post-comment {
+  height: 100%;
+}
+
+.comment-header {
+  padding: 1rem;
+  border-bottom: 1px solid #ddd;
+}
+
+.comment-body {
+  height: calc(100% - 100px);
+}

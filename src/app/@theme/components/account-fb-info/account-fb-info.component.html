@@ -1,0 +1,37 @@
+<div>
+  <div class="modal-body">
+    <ng-container *ngIf="data">
+      <div class="form-group">
+        <div class="col-12 d-flex justify-content-center">
+          <a [href]="fbDomain + '/' + data.fbid" target="_blank">
+            <img [src]="fbHost + '/' + data.fbid + '/picture'" alt="" class="rounded-circle avatar">
+          </a>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div>
+          <label class="font-weight-bold">Email</label>
+        </div>
+        <div>
+          <input type="text" class="form-control" [value]="data.email" readonly>
+        </div>
+      </div>
+      <div class="form-group">
+        <div>
+          <label class="font-weight-bold">Mật khẩu</label>
+        </div>
+        <div>
+          <input type="text" class="form-control" [value]="data.password" readonly>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+  <div class="modal-footer">
+    <div class="col-12 d-flex justify-content-center">
+      <button class="btn btn-sm btn-secondary" (click)="onClose()">Đóng</button>
+    </div>
+  </div>
+
+  <cpd-loading-overlay *ngIf="isLoading"></cpd-loading-overlay>
+</div>

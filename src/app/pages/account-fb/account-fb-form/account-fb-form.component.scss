@@ -1,0 +1,19 @@
+.group-item {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 1rem;
+  position: relative;
+}
+
+.remove-item {
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+}
+
+.setting-item {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}

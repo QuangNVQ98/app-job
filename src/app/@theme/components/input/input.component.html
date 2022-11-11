@@ -1,0 +1,20 @@
+<div [formGroup]="formGroup">
+  <input (focusin)="onfocus = true" (focusout)="onfocus = false" (change)="onChange()" appControlTrimReactiveForm #input [ControlTrim]="'both'" [type]="type" class="form-control" formControlName="{{controlName}}" placeholder="{{holderText}}">
+  <div *ngIf="checkControlValid(controlName)">
+    <span class="text-danger" *ngIf="checkValid(controlName, 'required') && !onfocus">
+      Thông tin không được để trống
+    </span>
+
+    <span class="text-danger" *ngIf="checkValid(controlName, 'email') && !onfocus">
+      Sai định dạng email
+    </span>
+
+    <span class="text-danger" *ngIf="formGroup.get(controlName).errors.notUnique">
+      Thông tin đã tồn tại
+    </span>
+
+    <span class="text-danger" *ngIf="formGroup.get(controlName).errors.mustMatch && !onfocus">
+      Mật khẩu không khớp
+    </span>
+  </div>
+</div>

@@ -1,0 +1,36 @@
+<div class="position-relative">
+  <div class="modal-header">
+    <h4 class="modal-title modal__title_20">Danh sách nhóm</h4>
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="onClose()">&times;</button>
+  </div>
+  <div class="modal-body">
+    <perfect-scrollbar *ngIf="lstGroup && lstGroup.length > 0" style="height: 400px;">
+      <ng-container *ngFor="let item of lstGroup">
+        <div class="d-flex mb-3">
+          <div class="px-3">
+            <img src="/api/get-file?path={{item.group[0].avatar}}" alt="avatar" class="rounded-circle avatar mr-3">
+<!--            <img *ngIf="!item.group[0].avatar" [src]="'/assets/images/img-avatar.jpg'" alt="avatar" class="rounded-circle avatar">-->
+          </div>
+          <div class="d-flex align-items-center">
+            <div class="col-12">
+              <div>
+                <a [href]="fbDomain + '/' + item.group[0].group_fbid" target="_blank"><b>{{item.group[0].name}}</b></a>
+              </div>
+              <div>
+                <span [ngClass]="{'text-success': item.status == accountFbGroupComplete}">{{item.status == accountFbGroupComplete ? 'Đã tham gia' : 'Chưa tham gia'}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </perfect-scrollbar>
+
+    <ng-container *ngIf="lstGroup && lstGroup.length == 0">
+      <div class="col-12 text-bold d-flex justify-content-center align-items-center" style="height: 300px;">
+        Chưa tham gia nhóm
+      </div>
+    </ng-container>
+  </div>
+
+  <cpd-loading-overlay *ngIf="isLoading"></cpd-loading-overlay>
+</div>

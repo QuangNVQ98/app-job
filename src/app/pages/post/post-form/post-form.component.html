@@ -1,0 +1,181 @@
+<div>
+  <div class="modal-header">
+    <h4 class="modal-title modal__title_20">{{id ? 'Sửa bài viết' : 'Thêm mới bài viết'}}</h4>
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="onClose()">&times;</button>
+  </div>
+
+  <div class="modal-body">
+    <form [formGroup]="form">
+      <div class="form-group">
+        <div class="row">
+          <div class="col-md-3">Tiêu đề <span class="text-danger">*</span></div>
+          <div class="col-md-9">
+            <ft-input [type]="'text'" [formGroup]="form" [controlName]="'title'"></ft-input>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="row">
+          <div class="col-md-3">Ngành nghề <span class="text-danger">*</span></div>
+          <div class="col-md-9">
+            <ng-select [items]="lstCareer" bindLabel="name"
+                       bindValue="_id" (change)="changeCareer()"
+                       placeholder="-- Chọn ngành nghề --" formControlName="career_id">
+            </ng-select>
+
+            <div *ngIf="checkControlValid('career_id')">
+              <span class="text-danger" *ngIf="checkValid('career_id', 'required')">
+                Thông tin không được để trống
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="row">
+          <div class="col-md-3">
+            <label>Khu vực <span class="text-danger">*</span></label>
+          </div>
+          <div class="col-md-9">
+            <ng-select [items]="lstLocation" bindLabel="name"
+                       bindValue="id" (change)="changeLocation()"
+                       placeholder="-- Chọn khu vực --" formControlName="location_id">
+            </ng-select>
+
+            <div *ngIf="checkControlValid('location_id')">
+              <span class="text-danger" *ngIf="checkValid('location_id', 'required')">
+                Thông tin không được để trống
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="row">
+          <div class="col-md-3">
+            <label>Group <span class="text-danger">*</span></label>
+          </div>
+          <div class="col-md-9">
+            <ng-select [items]="lstGroup" bindLabel="name"
+                       bindValue="_id" [multiple]="true" [closeOnSelect]="false"
+                       placeholder="-- Chọn nhóm --" formControlName="groups">
+            </ng-select>
+
+            <div *ngIf="checkControlValid('groups')">
+              <span class="text-danger" *ngIf="checkValid('groups', 'required')">
+                Thông tin không được để trống
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="row">
+          <div class="col-md-3">
+            <label>Thời gian post <span class="text-danger">*</span></label>
+          </div>
+          <div class="col-md-9">
+            <div class="row">
+              <div class="col-md-4">
+                <div>
+                  <input type="radio" id="rdPostNow" class="mr-2" formControlName="post_type" (change)="changePostType()" [value]="'postNow'"> <label for="rdPostNow">Đăng ngay</label>
+                </div>
+
+                <div>
+                  <input type="radio" id="rdPostLate" class="mr-2" formControlName="post_type" (change)="changePostType()" [value]="'postLate'"> <label for="rdPostLate">Chọn thời gian</label>
+                </div>
+              </div>
+
+              <ng-container *ngIf="form.get('post_type').value && form.get('post_type').value === 'postLate'">
+                <div class="col-md-8">
+                  <div class="row">
+                    <div class="col-6">
+                      <div class="input-group mb-2">
+                        <input class="form-control" placeholder="yyyy-mm-dd" (click)="d.toggle()"
+                               [minDate]="minDate"
+                               ngbDatepicker #d="ngbDatepicker" formControlName="post_date">
+                        <div class="input-group-append">
+                          <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button" [ngClass]="checkControlValid('post_date') ? 'error-border' : ''">
+                            <i class="fas fa-calendar"></i>
+                          </button>
+                        </div>
+                      </div>
+
+                      <div *ngIf="checkControlValid('post_date')">
+                        <span class="text-danger" *ngIf="checkValid('post_date', 'required')">
+                          Thông tin không được để trống
+                        </span>
+                      </div>
+                    </div>
+
+                    <div class="col-6 pl-0">
+                      <ngb-timepicker formControlName="post_time"></ngb-timepicker>
+
+                      <div *ngIf="checkControlValid('post_time')">
+                        <span class="text-danger" *ngIf="checkValid('post_date', 'required')">
+                          Thông tin không được để trống
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+            </div>
+
+            <div *ngIf="checkControlValid('post_type')">
+              <span class="text-danger" *ngIf="checkValid('post_type', 'required')">
+                Thông tin không được để trống
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Nội dung <span class="text-danger">*</span></label>
+        <div>
+          <textarea appControlTrimReactiveForm rows="10" class="form-control" formControlName="content"></textarea>
+
+          <div *ngIf="checkControlValid('content')">
+              <span class="text-danger" *ngIf="checkValid('content', 'required')">
+                Thông tin không được để trống
+              </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Chọn ảnh</label>
+        <div>
+          <input type="file" class="mb-3" accept="image/x-png,image/gif,image/jpeg" (change)="onSelectFile($event)" multiple>
+          <div class="row">
+            <ng-container *ngIf="id">
+              <div class="col-md-3 position-relative" *ngFor="let path of form.get('images').value; index as i;">
+                <img src="/api/get-file?path={{path}}" style="width: 100%; height: auto;" class="img-thumbnail">
+                <i class="fas fa-times position-absolute cursor-pointer" style="top: 5px; right: 20px;" (click)="removeImageEdit(i)"></i>
+              </div>
+            </ng-container>
+            <div class="col-md-3 position-relative" *ngFor="let url of urls; index as i;">
+              <img [src]="url" style="width: 100%; height: auto;" class="img-thumbnail">
+              <i class="fas fa-times position-absolute cursor-pointer" style="top: 5px; right: 20px;" (click)="removeImage(i)"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </form>
+  </div>
+
+  <div class="modal-footer">
+    <div class="col-md-9 offset-md-3 d-flex">
+      <button type="button" class="btn btn-secondary mr-2" (click)="onClose()">Hủy</button>
+      <button type="button" class="btn btn-primary" (click)="onSubmit()">Lưu</button>
+    </div>
+  </div>
+</div>
+
+<cpd-loading-overlay *ngIf="isLoading"></cpd-loading-overlay>

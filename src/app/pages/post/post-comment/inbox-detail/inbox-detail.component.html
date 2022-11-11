@@ -1,0 +1,12 @@
+<div class="inbox-detail">
+  <perfect-scrollbar style="height: 400px;">
+    <ng-container *ngFor="let item of data;">
+      <app-inbox-item [data]="item"></app-inbox-item>
+    </ng-container>
+  </perfect-scrollbar>
+  <div class="send-message">
+    <input type="text" class="form-control" placeholder="Nhập tin nhắn...">
+  </div>
+
+  <cpd-loading-overlay *ngIf="isLoading"></cpd-loading-overlay>
+</div>

@@ -1,0 +1,35 @@
+<div class="position-relative">
+  <div class="modal-header">
+    <h4 class="modal-title modal__title_20">Chi tiết bài viết</h4>
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="onClose()">&times;</button>
+  </div>
+  <div class="modal-body" *ngIf="data">
+    <div class="row">
+      <div class="col-md-2">
+        <label class="font-weight-bold">Tiêu đề</label>
+      </div>
+      <div class="col-md-10">
+        {{data.title}}
+      </div>
+    </div>
+    <div class="mb-3">
+      <label class="font-weight-bold">Nội dung bài viết</label>
+      <textarea class="form-control" rows="10">{{data.content}}</textarea>
+<!--      <pre>{{data.content}}</pre>-->
+    </div>
+    <label class="font-weight-bold">Ảnh</label>
+    <div class="row">
+      <div class="col-md-3 position-relative" *ngFor="let path of data.images">
+        <img src="/api/get-file?path={{path}}" style="width: 100%; height: auto;" class="img-thumbnail">
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <div class="col-12 text-center">
+      <button type="button" class="btn btn-secondary mr-2" (click)="onClose()">Đóng</button>
+    </div>
+  </div>
+
+  <cpd-loading-overlay *ngIf="isLoading"></cpd-loading-overlay>
+</div>

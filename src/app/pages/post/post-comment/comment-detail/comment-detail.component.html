@@ -1,0 +1,13 @@
+<div class="comment-detail">
+  <perfect-scrollbar class="comment-box">
+    <app-comment-item [data]="data"></app-comment-item>
+    <ng-container *ngFor="let item of data.sub_comments;">
+      <app-comment-item [data]="item"></app-comment-item>
+    </ng-container>
+  </perfect-scrollbar>
+  <div class="chat-box d-flex">
+    <input type="text" class="form-control mr-2" appControlTrimReactiveForm [ControlTrim]="'both'" [formControl]="message">
+    <span class="d-flex align-items-center px-3 cursor-pointer btn-comment btn-inbox mr-2" (click)="send(1)">Inbox</span>
+    <span class="d-flex align-items-center px-3 cursor-pointer btn-comment btn-reply" (click)="send(0)">Reply</span>
+  </div>
+</div>

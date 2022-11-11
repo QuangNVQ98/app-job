@@ -1,0 +1,52 @@
+<div class="container-fluid">
+  <!-- Page Heading -->
+  <div class="d-flex mb-3 justify-content-between">
+    <h1 class="h3 text-gray-800">Quản lý ngành nghề</h1>
+    <button class="btn btn-success" (click)="openForm()">Thêm mới</button>
+  </div>
+
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">Danh sách</h6>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-hover mb-0">
+          <thead>
+          <tr>
+            <th>Tên ngành nghề</th>
+            <th>Hành động</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let item of data;">
+            <td>{{item.name}}</td>
+            <td>
+              <i class="fas fa-edit mr-2 cursor-pointer" (click)="openForm(item._id)"></i>
+              <i class="fas fa-trash-alt text-danger cursor-pointer" (click)="onDelete(item._id)"></i>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="col-12 no-data" *ngIf="data && data.length == 0">
+        {{noDataMessage}}
+      </div>
+    </div>
+
+    <cpd-loading-overlay *ngIf="isLoading"></cpd-loading-overlay>
+  </div>
+
+</div>
+
+<swal
+  #modalConfirm
+  (confirm)="confirm()"
+  title="Xác nhận xóa ngành nghề"
+  type="question"
+  [confirmButtonText]="'Có'"
+  [cancelButtonText]="'Không'"
+  [showCancelButton]="true"
+  [allowOutsideClick]="false">
+</swal>

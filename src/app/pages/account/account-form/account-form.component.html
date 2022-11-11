@@ -1,0 +1,115 @@
+<div>
+  <div class="modal-header">
+    <h4 class="modal-title modal__title_20">{{id ? 'Sửa tài khoản' : 'Thêm mới tài khoản'}}</h4>
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="onClose()">&times;</button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="form">
+      <div class="form-group">
+        <div class="row">
+          <div class="col-md-3">
+            <label>Tên <span class="text-danger">*</span></label>
+          </div>
+          <div class="col-md-9">
+            <ft-input [type]="'text'" [formGroup]="form" [controlName]="'full_name'"></ft-input>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="row">
+          <div class="col-md-3">
+            <label>Số điện thoại</label>
+          </div>
+          <div class="col-md-9">
+            <ft-input [type]="'text'" [formGroup]="form" [controlName]="'phone'"></ft-input>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="row">
+          <div class="col-md-3">
+            <label>Email <span class="text-danger">*</span></label>
+          </div>
+          <div class="col-md-9">
+            <ft-input [type]="'text'" [formGroup]="form" [controlName]="'email'"></ft-input>
+          </div>
+        </div>
+      </div>
+
+      <ng-container *ngIf="!id">
+        <div class="form-group">
+          <div class="row">
+            <div class="col-md-3">
+              <label>Mật khẩu <span class="text-danger">*</span></label>
+            </div>
+            <div class="col-md-9">
+              <ft-input [type]="'password'" [formGroup]="form" [controlName]="'password'"></ft-input>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="row">
+            <div class="col-md-3">
+              <label>Nhập lại mật khẩu <span class="text-danger">*</span></label>
+            </div>
+            <div class="col-md-9">
+              <ft-input [type]="'password'" [formGroup]="form" [controlName]="'confirm_password'"></ft-input>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+
+      <div class="form-group">
+        <div class="row">
+          <div class="col-md-3">
+            <label>Nhóm quyền <span class="text-danger">*</span></label>
+          </div>
+          <div class="col-md-9">
+            <select class="form-control" formControlName="role" (change)="changeRole()">
+              <option [value]="''">-- Chọn nhóm quyền --</option>
+              <option *ngFor="let item of lstRole" [value]="item.code">{{item.label}}</option>
+            </select>
+
+            <div *ngIf="checkControlValid('role')">
+              <span class="text-danger" *ngIf="checkValid('role', 'required')">
+                Thông tin không được để trống
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <ng-container *ngIf="form.get('role').value == 2">
+        <div class="row">
+          <div class="col-md-3">
+            <label>Quyền</label>
+          </div>
+          <div class="col-md-9">
+            <ng-select [items]="lstPermission" bindLabel="label"
+                       bindValue="code" [multiple]="true" [closeOnSelect]="false"
+                       placeholder="-- Chọn quyền --" formControlName="acl">
+            </ng-select>
+
+            <div *ngIf="checkControlValid('acl')">
+              <span class="text-danger" *ngIf="checkValid('acl', 'required')">
+                Thông tin không được để trống
+              </span>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+
+    </form>
+  </div>
+  <div class="modal-footer">
+    <div class="col-md-9 offset-md-3 d-flex">
+      <button type="button" class="btn btn-secondary mr-2" (click)="onClose()">Hủy</button>
+      <button type="button" class="btn btn-primary" (click)="onSubmit()">Lưu</button>
+    </div>
+  </div>
+</div>
+
+<cpd-loading-overlay *ngIf="isLoading"></cpd-loading-overlay>

@@ -1,0 +1,103 @@
+<div>
+  <div class="modal-header">
+    <h4 class="modal-title modal__title_20">{{id ? 'Sửa nhóm' : 'Thêm mới nhóm'}}</h4>
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="onClose()">&times;</button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="form">
+      <div class="form-group">
+        <div class="row">
+          <div class="col-md-3">
+            <label>Id facebook <span class="text-danger" *ngIf="isIdRequired">*</span></label>
+          </div>
+          <div class="col-md-9">
+            <ft-input [type]="'text'" [formGroup]="form" (onInputChange)="checkValidate()" [controlName]="'groupFbId'"></ft-input>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="row">
+          <div class="col-md-3">
+            <label>Username facebook <span class="text-danger" *ngIf="isUsernameRequired">*</span></label>
+          </div>
+          <div class="col-md-9">
+            <ft-input [type]="'text'" [formGroup]="form" (onInputChange)="checkValidate()" [controlName]="'groupFbUsername'"></ft-input>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="row">
+          <div class="col-md-3">
+            <label>Tên nhóm <span class="text-danger">*</span></label>
+          </div>
+          <div class="col-md-9">
+            <ft-input [type]="'text'" [formGroup]="form" [controlName]="'name'"></ft-input>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="row">
+          <div class="col-md-3">
+            <label>Avatar <span class="text-danger">*</span></label>
+          </div>
+
+          <div class="col-md-9">
+            <input type="file" class="mb-3" accept="image/x-png,image/gif,image/jpeg" (change)="onSelectFile($event)" multiple>
+            <ng-container *ngIf="selectedFile">
+              <img [src]="urlTemp" alt="avatar" class="rounded-circle avatar mr-3">
+            </ng-container>
+            <ng-container *ngIf="!selectedFile && form.get('avatar').value">
+              <img src="/api/get-file?path={{form.get('avatar').value}}" alt="avatar" class="rounded-circle avatar mr-3">
+            </ng-container>
+            </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="row">
+          <div class="col-md-3">
+            <label>Ngành nghề <span class="text-danger">*</span></label>
+          </div>
+          <div class="col-md-9">
+            <ng-select [items]="lstCareer" bindLabel="name"
+                       bindValue="_id"
+                       placeholder="-- Chọn ngành nghề --" formControlName="careerId">
+            </ng-select>
+
+            <div *ngIf="checkControlValid('careerId')">
+              <span class="text-danger" *ngIf="checkValid('careerId', 'required')">
+                Thông tin không được để trống
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="row">
+          <div class="col-md-3">
+            <label>Khu vực <span class="text-danger">*</span></label>
+          </div>
+          <div class="col-md-9">
+            <ng-select [items]="lstLocation" bindLabel="name"
+                       bindValue="id"
+                       placeholder="-- Chọn khu vực --" formControlName="locationId">
+            </ng-select>
+
+            <div *ngIf="checkControlValid('locationId')">
+              <span class="text-danger" *ngIf="checkValid('locationId', 'required')">
+                Thông tin không được để trống
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <div class="col-md-9 offset-md-3 d-flex">
+      <button type="button" class="btn btn-secondary mr-2" (click)="onClose()">Hủy</button>
+      <button type="button" class="btn btn-primary" (click)="onSubmit()">Lưu</button>
+    </div>
+  </div>
+</div>
+<cpd-loading-overlay *ngIf="isLoading"></cpd-loading-overlay>

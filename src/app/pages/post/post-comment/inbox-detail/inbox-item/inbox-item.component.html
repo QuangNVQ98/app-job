@@ -1,0 +1,10 @@
+<div class="inbox-item">
+  <div class="inbox-message d-flex" [ngClass]="{'current-user': currId == data.send_id}">
+    <div class="px-3" *ngIf="data.send_id != currId">
+      <img src="/assets/images/img-avatar.jpg" alt="avatar" class="rounded-circle inbox-avatar">
+    </div>
+    <span [ngClass]="{'current-user-message': currId == data.send_id}">
+      {{data.message}}
+    </span>
+  </div>
+</div>

@@ -1,0 +1,123 @@
+<div class="container-fluid">
+  <form [formGroup]="form">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card shadow mb-4" formGroupName="account_fb">
+          <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Cài đặt chung</h6>
+          </div>
+          <div class="card-body">
+            <div class="row mb-3">
+              <div class="col-md-4">
+                <label>Thời gian giữa 2 lần login (giây)<span class="text-danger">*</span></label>
+              </div>
+              <div class="col-md-8">
+                <ft-input [type]="'number'" [formGroup]="form.get('account_fb')" [controlName]="'time_between_session'"></ft-input>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-4">
+                <label>Số lượng post tối đa trong 1 lần đăng nhập <span class="text-danger">*</span></label>
+              </div>
+              <div class="col-md-8">
+                <ft-input [type]="'number'" [formGroup]="form.get('account_fb')" [controlName]="'post_max_per_session'"></ft-input>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-4">
+                <label>Số lượng join tối đa trong 1 lần đăng nhập <span class="text-danger">*</span></label>
+              </div>
+              <div class="col-md-8">
+                <ft-input [type]="'number'" [formGroup]="form.get('account_fb')" [controlName]="'join_max_per_session'"></ft-input>
+              </div>
+            </div>
+
+            <div class="col-md-8 offset-md-4 d-flex">
+              <button type="button" class="btn btn-primary" (click)="onSubmit()">Lưu</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6" formGroupName="account_fb">
+        <div class="card shadow mb-4" formGroupName="post_max_per_time_range">
+          <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Số lượng post max trong một khoảng thời gian</h6>
+          </div>
+          <div class="card-body">
+            <div class="row mb-3">
+              <div class="col-md-3">Khoảng thời gian (giây)</div>
+              <div class="col-md-9">
+                <ft-input [type]="'number'" [formGroup]="form.get('account_fb').get('post_max_per_time_range')" [controlName]="'time_range'"></ft-input>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-3">Số lượng post</div>
+              <div class="col-md-9">
+                <ft-input [type]="'number'" [formGroup]="form.get('account_fb').get('post_max_per_time_range')" [controlName]="'post_num'"></ft-input>
+              </div>
+            </div>
+
+            <div class="col-md-9 offset-md-3 d-flex">
+              <button type="button" class="btn btn-primary" (click)="onSubmit()">Lưu</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6" formGroupName="account_fb">
+        <div class="card shadow mb-4" formGroupName="post_max_per_group_in_time_range">
+          <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Số lượng post max của 1 account trên 1 group trong một khoảng thời gian</h6>
+          </div>
+          <div class="card-body">
+            <div class="row mb-3">
+              <div class="col-md-3">Khoảng thời gian</div>
+              <div class="col-md-9">
+                <ft-input [type]="'number'" [formGroup]="form.get('account_fb').get('post_max_per_group_in_time_range')" [controlName]="'time_range'"></ft-input>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-3">Số lượng post</div>
+              <div class="col-md-9">
+                <ft-input [type]="'number'" [formGroup]="form.get('account_fb').get('post_max_per_group_in_time_range')" [controlName]="'post_num'"></ft-input>
+              </div>
+            </div>
+
+            <div class="col-md-9 offset-md-3 d-flex">
+              <button type="button" class="btn btn-primary" (click)="onSubmit()">Lưu</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="card shadow mb-4" formGroupName="status">
+          <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Thời gian delay kiểm tra trạng thái</h6>
+          </div>
+          <div class="card-body">
+            <div class="row mb-3">
+              <div class="col-md-3">Trạng thái join</div>
+              <div class="col-md-9">
+                <ft-input [type]="'number'" [formGroup]="form.get('status')" [controlName]="'time_check_join'"></ft-input>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-3">Trạng thái post</div>
+              <div class="col-md-9">
+                <ft-input [type]="'number'" [formGroup]="form.get('status')" [controlName]="'time_check_post'"></ft-input>
+              </div>
+            </div>
+            <div class="col-md-9 offset-md-3 d-flex">
+              <button type="button" class="btn btn-primary" (click)="onSubmit()">Lưu</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <cpd-loading-overlay *ngIf="isLoading"></cpd-loading-overlay>
+</div>

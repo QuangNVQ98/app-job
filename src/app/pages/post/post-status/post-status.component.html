@@ -1,0 +1,94 @@
+<div class="container-fluid position-relative post-status">
+  <ng-container *ngIf="data">
+
+    <!-- Page Heading -->
+    <div class="d-flex mb-3 justify-content-between">
+      <h1 class="h3 text-gray-800">{{data.title}}</h1>
+    </div>
+
+    <div class="row">
+      <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-success shadow h-100 py-2">
+          <div class="card-body cursor-pointer" (click)="viewList(2)">
+            <div class="row no-gutters align-items-center">
+              <div class="col mr-2">
+                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                  Số nhóm đăng thành công
+                </div>
+                <div class="h5 mb-0 font-weight-bold text-gray-800">{{data.group_success}}</div>
+              </div>
+              <div class="col-auto">
+                <i class="fas fa-check fa-2x text-gray-300"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+          <div class="card-body cursor-pointer" (click)="viewList(1)">
+            <div class="row no-gutters align-items-center">
+              <div class="col mr-2">
+                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                  Số nhóm chờ duyệt</div>
+                <div class="h5 mb-0 font-weight-bold text-gray-800">{{data.group_waiting}}</div>
+              </div>
+              <div class="col-auto">
+                <i class="fas fa-paper-plane fa-2x text-gray-300"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-warning shadow h-100 py-2">
+          <div class="card-body cursor-pointer" (click)="viewList(0)">
+            <div class="row no-gutters align-items-center">
+              <div class="col mr-2">
+                <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                  Số nhóm chưa đăng
+                </div>
+                <div class="h5 mb-0 font-weight-bold text-gray-800">{{data.group_pending}}</div>
+              </div>
+              <div class="col-auto">
+                <i class="fas fa-calendar fa-2x text-gray-300"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card shadow mb-4" *ngIf="postStatus || postStatus === 0">
+      <div class="card-header py-3 d-flex justify-content-between">
+        <h6 class="m-0 font-weight-bold text-primary">Danh sách nhóm {{postStatus === 2 ? 'đăng thành công' : (postStatus === 1 ? 'đang chờ duyệt' : 'chưa đăng')}}</h6>
+        <i class="fas fa fa-times cursor-pointer" (click)="viewList(null)"></i>
+      </div>
+      <div class="card-body">
+        <app-success-post *ngIf="postStatus === 2" [postId]="postId"></app-success-post>
+        <app-waiting-post *ngIf="postStatus === 1" [postId]="postId"></app-waiting-post>
+        <app-pending-post *ngIf="postStatus === 0" [postId]="postId"></app-pending-post>
+      </div>
+    </div>
+
+    <div class="card shadow mb-4 interactive-box">
+      <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Quản lý bình luận, tin nhắn</h6>
+      </div>
+      <div class="card-body">
+        <div class="row h-100">
+          <div class="col-md-3 h-100" style="border-right: 1px solid #ddd;">
+            <app-post-comment-menu [postId]="data._id"></app-post-comment-menu>
+          </div>
+          <div class="col-md-9 h-100">
+            <app-post-comment></app-post-comment>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </ng-container>
+  <cpd-loading-overlay *ngIf="isLoading"></cpd-loading-overlay>
+</div>

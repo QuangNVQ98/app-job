@@ -1,0 +1,44 @@
+.avatar {
+  width: 40px;
+  height: auto;
+}
+
+.comment-item {
+  margin-bottom: 4px;
+}
+
+.reply {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.reverse {
+  flex-direction: row-reverse;
+}
+
+.comment-content {
+  padding: 8px 16px;
+  border-radius: 18px;
+}
+
+.reply-comment {
+  background-color: #1cc88a;
+  color: #fff;
+}
+
+.reply-inbox {
+  background-color: #bb95ed;
+  color: #fff;
+}
+
+.comment {
+  border: 1px solid #ddd;
+}
+
+.inbox {
+  background-color: #e4e6eb;
+}
+
+.created-time {
+  color: #ccc;
+}

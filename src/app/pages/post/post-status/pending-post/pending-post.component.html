@@ -1,0 +1,31 @@
+<div class="table-responsive">
+  <table class="table table-hover mb-0">
+    <thead>
+    <tr>
+      <th>STT</th>
+      <th>Tên nhóm</th>
+      <th>Thời gian tạo</th>
+      <th>Thời gian dự kiến đăng</th>
+      <th>Trạng thái</th>
+      <th>Hành động</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let item of data; index as i;">
+      <td>{{i + 1}}</td>
+      <td>{{item.group[0] ? item.group[0].name : '--'}}</td>
+      <td>{{item.created | getDateTimeString}}</td>
+      <td>{{item.send_at | getDateTimeString}}</td>
+      <td>Đang chờ</td>
+      <td>
+        <button class="btn btn-sm btn-warning">Tạm dừng</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <div class="col-12 no-data" *ngIf="data && data.length == 0">
+    {{noDataMessage}}
+  </div>
+</div>
+<cpd-loading-overlay *ngIf="isLoading"></cpd-loading-overlay>

@@ -1,0 +1,28 @@
+<div class="position-relative">
+  <div class="modal-header">
+    <h4 class="modal-title modal__title_20">Danh sách tài khoản trong nhóm</h4>
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="onClose()">&times;</button>
+  </div>
+  <div class="modal-body">
+    <perfect-scrollbar *ngIf="lstAccountFb && lstAccountFb.length > 0" style="height: 400px;">
+      <ng-container *ngFor="let item of lstAccountFb">
+        <div class="d-flex mb-3">
+          <div class="px-3">
+            <img [src]="fbHost + '/' + item.account_fb[0].fbid + '/picture'" alt="avatar" class="rounded-circle avatar">
+          </div>
+          <div class="d-flex align-items-center">
+            <a [href]="fbDomain + '/' + item.account_fb[0].fbid" target="_blank"><b>{{item.account_fb[0].full_name}}</b></a>
+          </div>
+        </div>
+      </ng-container>
+    </perfect-scrollbar>
+
+    <ng-container *ngIf="lstAccountFb && lstAccountFb.length == 0">
+      <div class="col-12 text-bold d-flex justify-content-center align-items-center" style="height: 300px;">
+        Chưa có tài khoản trong nhóm
+      </div>
+    </ng-container>
+  </div>
+
+  <cpd-loading-overlay *ngIf="isLoading"></cpd-loading-overlay>
+</div>

@@ -1,0 +1,9 @@
+<div class="post-comment" *ngIf="currItem">
+  <div class="comment-header">
+    <h4><b class="cursor-pointer" (click)="showAccount()">{{currItem.accountFb[0] ? currItem.accountFb[0].full_name : ''}}</b></h4>
+    <span class="mr-3">Nhóm: {{currItem.postGroup.group[0] ? currItem.postGroup.group[0].name : ''}}</span><a [href]="fbDomain + '/' + currItem.post_fbid" target="_blank">Link bài viết</a>
+  </div>
+  <div class="pt-3 comment-body">
+    <app-comment-detail [data]="currItem"></app-comment-detail>
+  </div>
+</div>

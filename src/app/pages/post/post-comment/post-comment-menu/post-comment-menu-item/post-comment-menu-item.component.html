@@ -1,0 +1,13 @@
+<div class="comment-menu-item cursor-pointer" (click)="onClick()" [ngClass]="{'active': data._id == parentCurId}">
+  <div class="d-flex">
+    <div class="d-flex align-items-center">
+      <img [src]="fbHost + '/' + data.account_send_fbid + '/picture'" alt="avatar" class="rounded-circle avatar">
+    </div>
+    <div class="px-3">
+      <div class="my-1 font-weight-bold">{{data.account_send_name}}</div>
+      <div class="my-1">
+        {{(data.sub_comments && data.sub_comments.length > 0 ? data.sub_comments[data.sub_comments.length -1].content : data.content) | subString}}
+      </div>
+    </div>
+  </div>
+</div>

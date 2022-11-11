@@ -1,0 +1,69 @@
+// Import Custom SB Admin 2 Variables (Overrides Default Bootstrap Variables)
+@import "variables.scss";
+
+// Import Bootstrap
+@import "~bootstrap/scss/bootstrap.scss";
+// Import toast
+@import '~ngx-toastr/toastr-bs4-alert';
+@import '~ngx-ui-switch/ui-switch.component.scss';
+
+// Import ng-select
+@import "~@ng-select/ng-select/themes/default.theme.css";
+
+// Import Custom SB Admin 2 Mixins and Components
+@import "mixins.scss";
+@import "global.scss";
+@import "utilities.scss";
+
+// Custom Components
+@import "dropdowns.scss";
+@import "navs.scss";
+@import "buttons.scss";
+@import "cards.scss";
+@import "charts.scss";
+@import "login.scss";
+@import "error.scss";
+@import "footer.scss";
+
+// Custom Style
+.text-bold {
+  font-weight: bold;
+}
+.form-group.required > label::after {
+  content: ' (*)';
+  color: $red;
+}
+
+.form-control.ng-invalid:not(.ng-untouched),
+ng-select.ng-touched.ng-invalid .ng-select-container {
+  &:not(&:focus) {
+    border-color: $red;
+  }
+}
+
+.loading-overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba($color: #000000, $alpha: 0.2);
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+ngb-timepicker.ng-touched.ng-invalid input.form-control {
+  border-color: $red;
+}
+
+button[data-dismiss="modal"]:focus {
+  outline: none;
+}
+
+.no-data {
+  text-align: center;
+  margin-top: 10px;
+  font-weight: bold;
+}

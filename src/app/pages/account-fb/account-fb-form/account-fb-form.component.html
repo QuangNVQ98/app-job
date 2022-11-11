@@ -1,0 +1,233 @@
+<div>
+  <div class="modal-header">
+    <h4 class="modal-title modal__title_20">{{id ? 'Sửa tài khoản fb' : 'Thêm mới tài khoản fb'}}</h4>
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="onClose()">&times;</button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="form">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <div class="row">
+              <div class="col-md-3">
+                <label>Facebook Id <span class="text-danger">*</span></label>
+              </div>
+              <div class="col-md-9">
+                <ft-input [type]="'text'" [formGroup]="form" [controlName]="'fbid'"></ft-input>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="row">
+              <div class="col-md-3">
+                <label>Tên <span class="text-danger">*</span></label>
+              </div>
+              <div class="col-md-9">
+                <ft-input [type]="'text'" [formGroup]="form" [controlName]="'full_name'"></ft-input>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="row">
+              <div class="col-md-3">
+                <label>2fa <span class="text-danger">*</span></label>
+              </div>
+              <div class="col-md-9">
+                <ft-input [type]="'text'" [formGroup]="form" [controlName]="'fa'"></ft-input>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="row">
+              <div class="col-md-3">
+                <label>Mật khẩu <span class="text-danger">*</span></label>
+              </div>
+              <div class="col-md-9">
+                <ft-input [type]="'text'" [formGroup]="form" [controlName]="'password'"></ft-input>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="row">
+              <div class="col-md-3">
+                <label>Email <span class="text-danger">*</span></label>
+              </div>
+              <div class="col-md-9">
+                <ft-input [type]="'text'" [formGroup]="form" [controlName]="'email'"></ft-input>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="row">
+              <div class="col-md-3">
+                <label>Mật khẩu email <span class="text-danger">*</span></label>
+              </div>
+              <div class="col-md-9">
+                <ft-input [type]="'text'" [formGroup]="form" [controlName]="'email_password'"></ft-input>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="row">
+              <div class="col-md-3">
+                <label>Thứ hạng</label>
+              </div>
+              <div class="col-md-9">
+                <ft-input [type]="'number'" [formGroup]="form" [controlName]="'ranking'"></ft-input>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="row">
+              <div class="col-md-3">
+                <label>Trạng thái <span class="text-danger">*</span></label>
+              </div>
+              <div class="col-md-9">
+                <select class="form-control" formControlName="status">
+                  <option [value]="''">-- Chọn trạng thái --</option>
+                  <option [value]="1">Đang hoạt động</option>
+                  <option [value]="2">Đang join</option>
+                  <option [value]="9">Bị khóa</option>
+                </select>
+
+                <div *ngIf="checkControlValid('status')">
+                  <span class="text-danger" *ngIf="checkValid('status', 'required')">
+                    Thông tin không được để trống
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <b class="d-inline-block mb-3">Cài đặt tài khoản</b>
+          <div formGroupName="setting">
+            <div class="setting-item">
+              <div class="form-group">
+                <label>Thời gian login giữa 2 lần <span class="text-danger">*</span></label>
+                <ft-input [type]="'number'" [formGroup]="form.get('setting')" [controlName]="'time_between_session'"></ft-input>
+              </div>
+
+              <div class="form-group">
+                <label>Số lượng post tối đa trong 1 lần đăng nhập <span class="text-danger">*</span></label>
+                <ft-input [type]="'number'" [formGroup]="form.get('setting')" [controlName]="'post_max_per_session'"></ft-input>
+              </div>
+
+              <div class="form-group">
+                <label>Số lượng join tối đa trong 1 lần đăng nhập <span class="text-danger">*</span></label>
+                <ft-input [type]="'number'" [formGroup]="form.get('setting')" [controlName]="'join_max_per_session'"></ft-input>
+              </div>
+            </div>
+
+            <div class="setting-item" formGroupName="post_max_per_time_range">
+              <label class="font-weight-bold">Số lượng post max trong một khoảng thời gian</label>
+              <div class="form-group">
+                <label>Khoảng thời gian <span class="text-danger">*</span></label>
+                <ft-input [type]="'number'" [formGroup]="form.get('setting').get('post_max_per_time_range')" [controlName]="'time_range'"></ft-input>
+              </div>
+              <div class="form-group">
+                <label>Số lượng post <span class="text-danger">*</span></label>
+                <ft-input [type]="'number'" [formGroup]="form.get('setting').get('post_max_per_time_range')" [controlName]="'post_num'"></ft-input>
+              </div>
+            </div>
+
+            <div class="setting-item" formGroupName="post_max_per_group_in_time_range">
+              <label class="font-weight-bold">Số lượng post max trên 1 group trong một khoảng thời gian</label>
+              <div class="form-group">
+                <label>Khoảng thời gian <span class="text-danger">*</span></label>
+                <ft-input [type]="'number'" [formGroup]="form.get('setting').get('post_max_per_time_range')" [controlName]="'time_range'"></ft-input>
+              </div>
+              <div class="form-group">
+                <label>Số lượng post <span class="text-danger">*</span></label>
+                <ft-input [type]="'number'" [formGroup]="form.get('setting').get('post_max_per_time_range')" [controlName]="'post_num'"></ft-input>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="col-md-6">
+          <div class="group-item mb-3" *ngFor="let control of groups['controls']; index as i">
+            <div [formGroup]="control">
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-md-3">
+                    <label>Ngành nghề <span class="text-danger">*</span></label>
+                  </div>
+                  <div class="col-md-9">
+                    <ng-select [items]="lstCareer" bindLabel="name" bindValue="_id"
+                               (change)="changeCareer(control, i)"
+                               placeholder="-- Chọn ngành nghề --" formControlName="career_id">
+                    </ng-select>
+
+                    <div *ngIf="checkControlValid('career_id', control)">
+                      <span class="text-danger" *ngIf="checkValid('career_id', 'required', control)">
+                        Thông tin không được để trống
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-md-3">
+                    <label>Nhóm tự động join <span class="text-danger">*</span></label>
+                  </div>
+                  <div class="col-md-9">
+                    <ng-select [items]="lstGroup[i]" bindLabel="name" bindValue="_id"
+                               [multiple]="true" (change)="changeGroupAutoJoin(control, i)"
+                               [closeOnSelect]="false"
+                               formControlName="groups_auto_join"
+                               placeholder="Chọn nhóm tự động join">
+                    </ng-select>
+
+                    <div *ngIf="checkControlValid('groups_auto_join', control)">
+                      <span class="text-danger" *ngIf="checkValid('groups_auto_join', 'required', control)">
+                        Thông tin không được để trống
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-md-3">
+                    <label>Nhóm tự động post</label>
+                  </div>
+                  <div class="col-md-9">
+                    <ng-select [items]="lstGroupToPost[i]" bindLabel="name" bindValue="_id"
+                               [multiple]="true"
+                               [closeOnSelect]="false"
+                               formControlName="groups_auto_post"
+                               placeholder="Chọn nhóm tự động post">
+                    </ng-select>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <button *ngIf="groups['controls'].length > 1" class="btn btn-sm btn-secondary remove-item" (click)="removeGroup(i)">
+              <i class="fas fa-minus"></i>
+            </button>
+          </div>
+          <button class="btn btn-sm btn-success" (click)="addGroup()">
+            <i class="fas fa-plus"></i>
+          </button>
+        </div>
+      </div>
+
+    </form>
+  </div>
+  <div class="modal-footer">
+      <button type="button" class="btn btn-secondary mr-2" (click)="onClose()">Hủy</button>
+      <button type="button" class="btn btn-primary" (click)="onSubmit()">Lưu</button>
+  </div>
+</div>
+
+<cpd-loading-overlay *ngIf="isLoading"></cpd-loading-overlay>

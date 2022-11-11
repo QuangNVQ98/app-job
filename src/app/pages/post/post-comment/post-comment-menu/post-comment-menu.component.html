@@ -1,0 +1,12 @@
+<div class="post-comment-menu h-100 position-relative">
+  <perfect-scrollbar *ngIf="data && data.length > 0" class="h-100">
+    <ng-container *ngFor="let item of data;">
+      <app-post-comment-menu-item [data]="item" [parentCurId]="currId" (onClickItem)="itemClicked($event)"></app-post-comment-menu-item>
+    </ng-container>
+  </perfect-scrollbar>
+  <div *ngIf="data && data.length == 0" class="h-100 d-flex justify-content-center align-items-center">
+    <span class="font-weight-bold">Chưa có comment, inbox</span>
+  </div>
+
+  <cpd-loading-overlay *ngIf="isLoading"></cpd-loading-overlay>
+</div>

@@ -1,0 +1,89 @@
+<div class="container-fluid">
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">Bộ lọc</h6>
+    </div>
+    <div class="card-body">
+      <div class="row" [formGroup]="formSearch">
+        <div class="col-md-3">
+          <label>Tiêu đề</label>
+          <div>
+            <input type="text" class="form-control" formControlName="title">
+          </div>
+        </div>
+        <div class="col-md-3">
+          <label>Nhóm</label>
+          <ng-select [items]="lstGroup" bindLabel="name" bindValue="_id"
+                     placeholder="-- Chọn nhóm --"
+                     formControlName="group_id">
+          </ng-select>
+        </div>
+        <div class="col-md-3">
+          <label>Ngày đăng</label>
+          <div class="input-group">
+            <input class="form-control" placeholder="yyyy-mm-dd" (click)="d.toggle()"
+                   ngbDatepicker #d="ngbDatepicker" formControlName="post_date">
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
+                <i class="fas fa-calendar"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <label>&nbsp;</label>
+          <div>
+            <button class="btn btn-primary" (click)="search()"><i class="fas fa-search cursor-pointer"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary d-flex">
+        <span class="mr-2">Danh sách bài viết của:</span>
+        <ng-container *ngIf="accountFb">
+          <span class="cursor-pointer" (click)="showAccount()">{{accountFb.full_name}}</span>
+        </ng-container>
+      </h6>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-hover mb-0">
+          <thead>
+          <tr>
+            <th>STT</th>
+            <th>Tiêu đề bài viết</th>
+            <th>Nhóm</th>
+            <th>Thời gian post thành công</th>
+            <th>Hành động</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let item of data; index as i;">
+            <td>{{i + 1}}</td>
+            <td><a [href]="fbDomain + '/' + item.post_fbid" target="_blank">{{item.post ? item.post.title : '--'}}</a></td>
+            <td class="cursor-pointer" (click)="viewPost(item.post_id)">{{item.group ? item.group.name : '--'}}</td>
+            <td class="cursor-pointer" (click)="viewPost(item.post_id)">{{item.action_time | getDateTimeString}}</td>
+            <td>
+              <i class="fas fa-eye cursor-pointer" (click)="viewPost(item.post_id)"></i>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+
+        <div class="col-12 no-data" *ngIf="pagination && pagination.total == 0">
+          {{noDataMessage}}
+        </div>
+        <cpd-pagination *ngIf="pagination && pagination.total > 0" [props]="pagination" (onChangePage)="changePage($event)"></cpd-pagination>
+      </div>
+    </div>
+
+    <cpd-loading-overlay *ngIf="isLoading"></cpd-loading-overlay>
+
+  </div>
+
+</div>

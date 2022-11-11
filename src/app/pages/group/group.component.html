@@ -1,0 +1,108 @@
+<div class="container-fluid">
+  <!-- Page Heading -->
+  <div class="d-flex mb-3 justify-content-between">
+    <h1 class="h3 text-gray-800">Quản lý nhóm fb</h1>
+    <button class="btn btn-success" (click)="openForm()">Thêm mới</button>
+  </div>
+
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">Bộ lọc</h6>
+    </div>
+    <div class="card-body">
+      <div class="row" [formGroup]="formSearch">
+        <div class="col-md-3">
+          <label>Tên nhóm</label>
+          <input type="text" class="form-control" formControlName="name">
+        </div>
+
+        <div class="col-md-3">
+          <label>Ngành nghề</label>
+          <ng-select [items]="lstCareer" bindLabel="name"
+                     bindValue="_id"
+                     placeholder="-- Chọn ngành nghề --" formControlName="career_id">
+          </ng-select>
+        </div>
+
+        <div class="col-md-3">
+          <label>Khu vực</label>
+          <ng-select [items]="lstLocation" bindLabel="name"
+                     bindValue="id"
+                     placeholder="-- Chọn khu vực --" formControlName="location_id">
+          </ng-select>
+        </div>
+
+        <div class="col-md-3">
+          <label>&nbsp;</label>
+          <div>
+            <button class="btn btn-primary" (click)="onSearch()"><i class="fas fa-search cursor-pointer"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">Danh sách</h6>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-hover mb-3">
+          <thead>
+          <tr>
+            <th>STT</th>
+            <th>Tên nhóm</th>
+            <th>Ngành nghề</th>
+            <th>Tỉnh thành</th>
+            <th>Tổng số thành viên</th>
+            <th>Số bài đăng hàng ngày</th>
+            <th>Số tài khoản đang active trong nhóm</th>
+            <th>Đổi trạng thái</th>
+            <th>Hành động</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let item of data; index as i;">
+            <td>{{i + 1}}</td>
+            <td><a [href]="fbDomain + '/' + item.group_fbid" target="_blank">{{item.name}}</a></td>
+            <td class="cursor-pointer" (click)="viewMember(item._id)">{{item.career && item.career[0] ? item.career[0].name : '--'}}</td>
+            <td class="cursor-pointer" (click)="viewMember(item._id)">{{_addressService.getProvince(item.location_id) ? _addressService.getProvince(item.location_id).name : '--'}}</td>
+            <td class="cursor-pointer" (click)="viewMember(item._id)">{{item.total_member ? item.total_member : '--'}}</td>
+            <td class="cursor-pointer" (click)="viewMember(item._id)">{{item.post_per_day ? item.post_per_day : '--'}}</td>
+            <td class="cursor-pointer" (click)="viewMember(item._id)">{{item.total_account_in_group ? item.total_account_in_group : '--'}}</td>
+            <td>
+              <ui-switch (change)="changeStatus(item._id)" style="display: block;" switchColor="#fff"
+                         size="small" [checked]="(item.status == 1)">
+              </ui-switch>
+            </td>
+            <td>
+              <i class="fas fa-edit mr-2 cursor-pointer" (click)="openForm(item._id)"></i>
+              <i class="fas fa-trash-alt text-danger cursor-pointer" (click)="onDelete(item._id)"></i>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+
+        <div class="col-12 no-data" *ngIf="pagination && pagination.total == 0">
+          {{noDataMessage}}
+        </div>
+        <cpd-pagination *ngIf="pagination && pagination.total > 0" [props]="pagination" (onChangePage)="changePage($event)"></cpd-pagination>
+      </div>
+    </div>
+
+    <cpd-loading-overlay *ngIf="isLoading"></cpd-loading-overlay>
+  </div>
+
+</div>
+
+<swal
+  #modalConfirm
+  (confirm)="confirm()"
+  title="Xác nhận xóa nhóm?"
+  type="question"
+  [confirmButtonText]="'Có'"
+  [cancelButtonText]="'Không'"
+  [showCancelButton]="true"
+  [allowOutsideClick]="false">
+</swal>

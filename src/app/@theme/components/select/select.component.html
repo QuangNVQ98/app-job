@@ -1,0 +1,12 @@
+<div [formGroup]="formGroup">
+  <select class="form-control" #ddl formControlName="{{controlName}}" (change)="onChangeValue(ddl.value)">
+    <option [value]="''">{{holderText}}</option>
+    <option *ngFor="let item of data" [value]="item.id">{{item.label}}</option>
+  </select>
+
+  <div *ngIf="checkControlValid(controlName)">
+    <span class="text-danger" *ngIf="checkValid(controlName, 'required')">
+      Thông tin không được để trống
+    </span>
+  </div>
+</div>

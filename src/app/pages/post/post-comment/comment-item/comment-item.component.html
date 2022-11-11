@@ -1,0 +1,24 @@
+<div class="comment-item" [ngClass]="{'reply': !data.account_send_fbid}">
+  <div class="d-flex" [ngClass]="{'reverse': !data.account_send_fbid}">
+    <div *ngIf="data.account_send_fbid" class="mx-2 d-flex align-items-center">
+      <img [src]="fbHost + '/' + data.account_send_fbid + '/picture'" alt="avatar" class="rounded-circle avatar">
+    </div>
+    <div class="d-flex align-items-center">
+      <div class="comment-content"
+           [ngClass]="{
+           'reply-comment': !data.account_send_fbid && data.comment_type == 0,
+           'reply-inbox': !data.account_send_fbid && data.comment_type == 1,
+           'comment': data.account_send_fbid && data.comment_type == 0,
+           'inbox': data.account_send_fbid && data.comment_type == 1
+           }">
+        {{data.content}}
+      </div>
+    </div>
+    <div class="px-3 d-flex align-items-center">
+      <span class="created-time">
+        {{data.created | getDateTimeString}}
+      </span>
+    </div>
+  </div>
+</div>
+

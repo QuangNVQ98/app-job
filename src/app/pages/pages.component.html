@@ -1,0 +1,152 @@
+<!-- Page Wrapper -->
+<div id="wrapper">
+
+  <!-- Sidebar -->
+  <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+    <!-- Sidebar - Brand -->
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" [routerLink]="['/pages/campaign']">
+      <div class="sidebar-brand-icon">
+        <i class="fab fa-facebook-square"></i>
+      </div>
+      <div class="sidebar-brand-text mx-3">FB Tool <sup>1.0</sup></div>
+    </a>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+
+    <!-- Heading -->
+    <div class="sidebar-heading">
+      Chung
+    </div>
+
+    <!-- Nav Item - Dashboard -->
+    <li class="nav-item" routerLinkActive="active">
+      <a class="nav-link" [routerLink]="['dashboard']">
+        <i class="fas fa-fw fa-map-signs"></i>
+        <span>Tổng quan</span>
+      </a>
+    </li>
+
+    <li *ngIf="hasPermission('career')" class="nav-item" routerLinkActive="active">
+      <a class="nav-link" [routerLink]="['career']">
+        <i class="fas fa-fw fa-briefcase"></i>
+        <span>QL ngành nghề</span>
+      </a>
+    </li>
+
+    <li *ngIf="hasPermission('group')" class="nav-item" routerLinkActive="active">
+      <a class="nav-link" [routerLink]="['group']">
+        <i class="fas fa-fw fa-users"></i>
+        <span>QL nhóm FB</span>
+      </a>
+    </li>
+
+    <li *ngIf="hasPermission('account_fb')" class="nav-item" routerLinkActive="active">
+      <a class="nav-link" [routerLink]="['account-fb']">
+        <i class="fas fa-fw fa-user"></i>
+        <span>QL tài khoản FB</span>
+      </a>
+    </li>
+
+    <li *ngIf="hasPermission('post')" class="nav-item" routerLinkActive="active">
+      <a class="nav-link" [routerLink]="['post']">
+        <i class="fas fa-fw fa-clipboard"></i>
+        <span>QL bài viết</span>
+      </a>
+    </li>
+
+    <li *ngIf="hasPermission('account')" class="nav-item" routerLinkActive="active">
+      <a class="nav-link" [routerLink]="['account']">
+        <i class="fas fa-fw fa-book"></i>
+        <span>QL tài khoản</span>
+      </a>
+    </li>
+    <li *ngIf="hasPermission('setting')" class="nav-item" routerLinkActive="active">
+      <a class="nav-link" [routerLink]="['setting']">
+        <i class="fas fa-fw fa-cog"></i>
+        <span>Cài đặt</span>
+      </a>
+    </li>
+
+  </ul>
+  <!-- End of Sidebar -->
+
+  <!-- Content Wrapper -->
+  <div id="content-wrapper" class="d-flex flex-column">
+
+    <!-- Main Content -->
+    <div id="content">
+
+      <!-- Topbar -->
+      <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+        <!-- Sidebar Toggle (Topbar) -->
+        <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+          <i class="fa fa-bars"></i>
+        </button>
+
+        <!-- <button type="button" onclick="window.history.back()" class="btn btn-outline-secondary btn-sm">&larr; Quay lại</button> -->
+
+        <!-- Topbar Navbar -->
+        <ul class="navbar-nav ml-auto">
+
+<!--          notification-->
+          <!-- Nav Item - Alerts -->
+          <li class="nav-item dropdown no-arrow mx-1">
+            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
+               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="fas fa-bell fa-fw"></i>
+              <!-- Counter - Alerts -->
+              <span class="badge badge-danger badge-counter">3+</span>
+            </a>
+            <!-- Dropdown - Alerts -->
+            <app-notification></app-notification>
+          </li>
+<!--          end-notification-->
+
+          <div class="topbar-divider d-none d-sm-block"></div>
+
+          <!-- Nav Item - User Information -->
+          <li class="nav-item dropdown no-arrow">
+            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+              <span class="mr-2 d-none d-lg-inline text-gray-600 small">Admin</span>
+              <img class="img-profile rounded-circle" src="assets/images/img-avatar.jpg">
+            </a>
+            <!-- Dropdown - User Information -->
+            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+              <a class="dropdown-item" [routerLink]="['profile']">
+                <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                Tài khoản
+              </a>
+              <div class="dropdown-divider"></div>
+              <button class="dropdown-item" (click)="logout()">
+                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                Đăng xuất
+              </button>
+            </div>
+          </li>
+
+        </ul>
+
+      </nav>
+      <!-- End of Topbar -->
+
+      <!-- Begin Page Content -->
+      <router-outlet></router-outlet>
+      <!-- /.container-fluid -->
+
+    </div>
+    <!-- End of Main Content -->
+
+  </div>
+  <!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+  <i class="fas fa-angle-up"></i>
+</a>

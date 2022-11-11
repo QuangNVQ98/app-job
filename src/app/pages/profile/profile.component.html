@@ -1,0 +1,82 @@
+<div class="container-fluid">
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header">
+        <b class="text-primary">Thông tin tài khoản</b>
+      </div>
+
+      <div class="card-body">
+
+        <form [formGroup]="form">
+          <div class="row">
+            <div class="col-md-3">
+              <div class="form-group">
+                <div (click)="inputFile.click()" class="cursor-pointer">
+                  <ng-container *ngIf="selectedFile">
+                    <img [src]="urlTemp" alt="avatar" class="rounded-circle avatar mr-3">
+                  </ng-container>
+                  <ng-container *ngIf="!selectedFile">
+                    <ng-container *ngIf="account && account.avatar">
+                      <img src="/api/get-file?path={{account.avatar}}" alt="avatar" class="rounded-circle avatar mr-3">
+                    </ng-container>
+                    <ng-container *ngIf="account && !account.avatar">
+                      <img [src]="urlAvatar" alt="avatar" class="rounded-circle avatar mr-3">
+                    </ng-container>
+                  </ng-container>
+                </div>
+
+                <input type="file" class="input-file" #inputFile accept="image/x-png,image/gif,image/jpeg" (change)="onSelectFile($event)">
+              </div>
+            </div>
+            <div class="col-md-9">
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-md-3">
+                    <label>Email</label>
+                  </div>
+                  <div class="col-md-9">
+                    <ft-input [type]="'text'" [formGroup]="form" [controlName]="'email'"></ft-input>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-md-3">
+                    <label>Tên</label>
+                  </div>
+                  <div class="col-md-9">
+                    <ft-input [type]="'text'" [formGroup]="form" [controlName]="'full_name'"></ft-input>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-md-3">
+                    <label>Số điện thoại</label>
+                  </div>
+                  <div class="col-md-9">
+                    <ft-input [type]="'text'" [formGroup]="form" [controlName]="'phone'"></ft-input>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="col-md-9 offset-md-3 d-flex">
+                  <button type="button" class="btn btn-primary mr-2" (click)="onSubmit()">Lưu</button>
+                  <button type="button" class="btn btn-success" (click)="changePassword()">Đổi mật khẩu</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+
+      </div>
+
+      <cpd-loading-overlay *ngIf="isLoading"></cpd-loading-overlay>
+
+    </div>
+  </div>
+
+</div>
